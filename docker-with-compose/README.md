@@ -30,14 +30,6 @@ Docker version 19.03.8, build afacb8b7f0
 / # docker-compose --version
 docker-compose version 1.25.5, build unknown
 
-/ # cat /etc/os-release
-NAME="Alpine Linux"
-ID=alpine
-VERSION_ID=3.11.6
-PRETTY_NAME="Alpine Linux v3.11"
-HOME_URL="https://alpinelinux.org/"
-BUG_REPORT_URL="https://bugs.alpinelinux.org/"
-
 / # make --version
 GNU Make 4.2.1
 Built for x86_64-alpine-linux-musl

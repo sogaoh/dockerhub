@@ -16,6 +16,14 @@ CI、たとえば Bitbucket Pipeline で使う docker-compose 入りの containe
 ```
 ❯ docker run -it --rm sogaoh/docker-with-compose ash
 
+/ # cat /etc/os-release
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.11.6
+PRETTY_NAME="Alpine Linux v3.11"
+HOME_URL="https://alpinelinux.org/"
+BUG_REPORT_URL="https://bugs.alpinelinux.org/"
+
 / # docker --version
 Docker version 19.03.8, build afacb8b7f0
 

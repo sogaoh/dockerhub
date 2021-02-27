@@ -10,7 +10,7 @@ FROM amazonlinux:2
 # Install nvm
 ##############################################3
 RUN yum -y update && \
-    yum install -y tar gzip wget
+    yum install -y git less tar gzip wget
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 
 

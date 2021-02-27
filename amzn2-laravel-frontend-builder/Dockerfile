@@ -18,8 +18,7 @@ RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | 
 # Setup Node.js (version your intend)
 ##############################################3
 ARG NODE_VERSION
-RUN echo $NODE_VERSION
-
+#RUN echo $NODE_VERSION
 RUN /bin/bash -c "source /root/.nvm/nvm.sh; nvm install ${NODE_VERSION}"
 
 RUN { \

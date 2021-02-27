@@ -21,5 +21,5 @@ RUN { \
 CMD /bin/bash -c "source /root/.nvm/nvm.sh; nvm use ${NODE_VERSION}"
 
 
-RUN nvm --version
+RUN node --version
 

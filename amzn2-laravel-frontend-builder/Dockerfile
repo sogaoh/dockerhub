@@ -28,3 +28,8 @@ RUN { \
 
 CMD /bin/bash -c "source /root/.nvm/nvm.sh; nvm use ${NODE_VERSION}"
 
+
+##############################################3
+# Install docker
+##############################################3
+RUN amazon-linux-extras install docker

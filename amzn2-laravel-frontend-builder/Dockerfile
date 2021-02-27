@@ -6,4 +6,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
 RUN . ~/.nvm/nvm.sh
 
 ARG NODE_VERSION
+ENV NODE_VERSION=${NODE_VERSION}
+
 RUN nvm install ${NODE_VERSION}

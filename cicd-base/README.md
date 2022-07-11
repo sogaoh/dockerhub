@@ -3,7 +3,8 @@
 CI/CD の土台に利用できる Docker image
 
 - Amazon Linux 2 
-- Ubuntu 22.04 (focal)
+- Ubuntu 20.04 (focal)
+- Debian 11 (bullseye) (stable-slim)
 
 
 ## build command example

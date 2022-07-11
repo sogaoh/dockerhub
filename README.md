@@ -11,3 +11,7 @@ Source of https://hub.docker.com/u/sogaoh
     - image : [https://hub.docker.com/repository/docker/sogaoh/pixela-hooker](https://hub.docker.com/repository/docker/sogaoh/pixela-hooker)
 - [amzn2-laravel-frontend-builder](amzn2-laravel-frontend-builder)
     - iamge : [https://hub.docker.com/repository/docker/sogaoh/amzn2-laravel-frontend-builder](https://hub.docker.com/repository/docker/sogaoh/amzn2-laravel-frontend-builder)
+- [cicd-base](cicd-base)
+    - image: [https://hub.docker.com/repository/docker/sogaoh/cicd-base](https://hub.docker.com/repository/docker/sogaoh/cicd-base)
+        - amzn2
+        - focal

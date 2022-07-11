@@ -1,0 +1,46 @@
+FROM ubuntu:focal
+
+ENV TZ=Asia/Tokyo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+#################################################
+# Install tools & nvm
+################################################# 
+RUN apt-get -y update && \
+    apt-get install -y git less tar gzip wget gcc make python3 unzip jq rsync \
+      ca-certificates curl gnupg lsb-release sudo
+
+ARG NVM_VERSION
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
+#RUN /bin/bash -c "source /root/.nvm/nvm.sh; 
+RUN { \
+  echo 'export NVM_DIR=~/.nvm'; \
+  echo '. ~/.nvm/nvm.sh'; \
+  } > /root/.bashrc
+CMD /bin/bash -c "source /root/.bashrc; 
+
+
+#################################################
+# Install docker,docker-compose
+#################################################
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get -y update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+ARG COMPOSE_VERSION
+RUN curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    && ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+
+#################################################
+# Install AWS CLI v2
+#################################################
+# RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip \
+#     && unzip /tmp/awscliv2.zip -d /tmp \
+#     && /tmp/aws/install \
+#     && rm -f /tmp/awscliv2.zip \
+#     && rm -rf /tmp/aws

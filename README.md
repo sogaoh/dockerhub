@@ -15,3 +15,4 @@ Source of https://hub.docker.com/u/sogaoh
     - image: [https://hub.docker.com/repository/docker/sogaoh/cicd-base](https://hub.docker.com/repository/docker/sogaoh/cicd-base)
         - amzn2
         - focal
+        - debian

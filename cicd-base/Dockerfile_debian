@@ -4,29 +4,35 @@ ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #################################################
-# Install openjdk
+# Install openjdk17 
 #################################################
 RUN apt update \
-    && apt install -y openjdk-17-jdk
+    && apt install -y --no-install-recommends openjdk-17-jdk
 
 #################################################
-# Install tools & nvm,node
+# Install tools & nvm,node,bun
 ################################################# 
-RUN apt-get -y update && \
-    apt-get install -y git less tar gzip wget gcc make python3 unzip jq rsync \
-      ca-certificates curl gnupg lsb-release sudo
+RUN apt-get -y update \
+    && apt-get install -y git less tar gzip wget gcc make python3 unzip jq rsync \
+      ca-certificates curl gnupg lsb-release sudo \
+    && apt-get -y clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG NVM_VERSION
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
 
 ARG NODE_VERSION
 RUN /bin/bash -c ". /root/.nvm/nvm.sh; nvm install ${NODE_VERSION}" 
+RUN /bin/bash -c ". /root/.nvm/nvm.sh; nvm use ${NODE_VERSION}" 
+
+RUN curl https://bun.sh/install | bash
+
 RUN { \
+  echo 'export BUN_INSTALL=~/.bun'; \ 
   echo 'export NVM_DIR=~/.nvm'; \
   echo '. ~/.nvm/nvm.sh'; \
+  echo 'export PATH="$BUN_INSTALL/bin:~/.nvm/versions/node/${NODE_VERSION}/bin:$PATH"'; \
   } > /root/.bashrc
-CMD /bin/bash -c ". /root/.nvm/nvm.sh; nvm use ${NODE_VERSION}" 
-
 
 
 #################################################
@@ -36,8 +42,10 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /
 RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-RUN apt-get -y update && \
-    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN apt-get -y update \
+    && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin \
+    && apt-get -y clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG COMPOSE_VERSION
 RUN curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \

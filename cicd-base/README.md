@@ -14,7 +14,7 @@ cd /path/to/cicd-base
 ```
 
 ```bash
-make build
+make all
 ```
 
 ### Makefile example
@@ -30,10 +30,11 @@ ORG := sogaoh
 TAG := amzn2
 DOCKERFILE := Dockerfile_amzn2
 NVM_VERSION := v0.39.1
+NODE_VERSION := v16.15.1
 COMPOSE_VERSION := v2.6.1
 
 build:
-	docker build --no-cache -t cicd-base:$(TAG) --build-arg NVM_VERSION=$(NVM_VERSION) --build-arg COMPOSE_VERSION=$(COMPOSE_VERSION) -f ./$(DOCKERFILE) .
+	docker build --no-cache -t cicd-base:$(TAG) --build-arg NVM_VERSION=$(NVM_VERSION) --build-arg NODE_VERSION=${NODE_VERSION} --build-arg COMPOSE_VERSION=$(COMPOSE_VERSION) -f ./$(DOCKERFILE) .
 tag:
 	docker tag cicd-base:$(TAG) $(ORG)/cicd-base:$(TAG)
 push:
